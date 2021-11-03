@@ -14,6 +14,7 @@ https://milano-patel.github.io/memory-cards/
 - View prev and next cards
 - Add new cards to local storage
 - Clear all cards from local storage
+- Delete a single memory card
 
 ## Credit
 

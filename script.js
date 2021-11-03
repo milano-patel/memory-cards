@@ -9,6 +9,7 @@ const answerEl = document.getElementById('answer');
 const addCardBtn = document.getElementById('add-card');
 const clearBtn = document.getElementById('clear');
 const addContainer = document.getElementById('add-container');
+const deleteBtn = document.getElementById('delete');
 
 // Keep track of current card
 let currentActiveCard = 0;
@@ -57,9 +58,14 @@ function createCard(data, index) {
             <p>${data.answer}</p>
           </div>
         </div>
+        <button id="delete" class="delete btn">
+        <i class="fas fa-trash"></i>
+      </button>
   `;
 
-  card.addEventListener('click', () => card.classList.toggle('show-answer'));
+  card.addEventListener('click', () => {
+    card.classList.toggle('show-answer');
+  });
 
   //Add to DOM cards
   cardsEl.push(card);
@@ -67,6 +73,23 @@ function createCard(data, index) {
   cardsContainer.appendChild(card);
 
   updateCurrentText();
+}
+
+function deleteCard(target) {
+  if (target.className === 'delete btn') {
+    target.parentElement.remove();
+    cardsEl.splice(currentActiveCard, 1);
+    cardsData.splice(currentActiveCard, 1);
+
+    setCardsData(cardsData);
+  }
+  if (target.className === 'fas fa-trash') {
+    target.parentElement.parentElement.remove();
+    cardsEl.splice(currentActiveCard, 1);
+    cardsData.splice(currentActiveCard, 1);
+
+    setCardsData(cardsData);
+  }
 }
 
 //Show number of cards
@@ -151,6 +174,10 @@ clearBtn.addEventListener('click', () => {
   localStorage.clear();
   cardsContainer.innerHTML = '';
   window.location.reload();
+});
+
+cardsContainer.addEventListener('click', (e) => {
+  deleteCard(e.target);
 });
 
 createCards();
